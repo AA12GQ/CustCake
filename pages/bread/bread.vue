@@ -1,6 +1,13 @@
 <template>
 	<view>
-		面包
+		<view class="flex justify-between padding">
+			<view class="">
+				草莓蛋糕
+			</view>
+			<view class="">
+				很好吃
+			</view>
+		</view>
 	</view>
 </template>
 
@@ -17,6 +24,8 @@
 	}
 </script>
 
-<style>
-
+<style lang="scss">
+.flex{
+	
+}
 </style>
