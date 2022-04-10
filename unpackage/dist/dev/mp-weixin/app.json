@@ -1,0 +1,35 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/cake/cake",
+    "pages/bread/bread",
+    "pages/food/food"
+  ],
+  "subPackages": [],
+  "window": {
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "mcake",
+    "navigationBarBackgroundColor": "#FF5500",
+    "backgroundColor": "#F8F8F8"
+  },
+  "tabBar": {
+    "color": "#d8d8d8",
+    "selectedColor": "#FF5500",
+    "backgroundColor": "#FFF",
+    "list": [
+      {
+        "text": "蛋糕",
+        "pagePath": "pages/cake/cake"
+      },
+      {
+        "text": "面包",
+        "pagePath": "pages/bread/bread"
+      },
+      {
+        "text": "小食",
+        "pagePath": "pages/food/food"
+      }
+    ]
+  },
+  "usingComponents": {}
+}
