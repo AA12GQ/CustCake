@@ -5,7 +5,7 @@
 				草莓蛋糕
 			</view>
 			<view class="">
-				很好吃
+				<u--text type="primary" text="主色"></u--text>
 			</view>
 		</view>
 	</view>
@@ -28,4 +28,5 @@
 .flex{
 	
 }
+@import "uview-ui/index.scss";
 </style>

@@ -1,7 +1,7 @@
 <template>
 	<view>
-		<view class="count">
-			<view class="cake-item" v-for="(item,index) in 8">
+		<view class="count" >
+			<view class="cake-item" v-for="(item,index) in 8" @click="handleDetail(index)" >
 				<view class="poster">
 					
 				</view>
@@ -35,7 +35,13 @@
 			}
 		},
 		methods: {
-			
+			handleDetail(idx){
+				uni.navigateTo({
+					url:'../detail/detail?idx='+idx,
+					
+				})
+				console.log(idx)
+			}
 		}
 	}
 </script>
