@@ -12,6 +12,16 @@ import HomeTitle from 'components/home-title.vue'
 Vue.component('home-title',HomeTitle)
 import GoodItem from 'components/good-item.vue'
 Vue.component('good-item',GoodItem)
+
+// 原型挂载异步请求方法
+// import {$http,$get,$post} from 'utils/request.js'
+// Vue.prototype.$http = $http
+// Vue.prototype.$get = $get
+// Vue.prototype.$post = $post
+import * as request from 'utils/request.js'
+for(let key in request) {
+	Vue.prototype[key]  = request[key]
+}
 App.mpType = 'app'
 const app = new Vue({
     ...App

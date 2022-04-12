@@ -4,9 +4,9 @@
 			<view id="top"></view>
 			<nav-custom></nav-custom>
 			<swiper class="banner" :indicator-dots="true" :autoplay="true" indicator-active-color="#ffe32a">
-				<swiper-item v-for="(item,index) in 2">
+				<swiper-item v-for="(item,index) in banner">
 					<view class="swiper-item">
-						<image src="../../static/img/banner01.jpg" mode=""></image>
+						<image :src="item.img" mode=""></image>
 					</view>
 				</swiper-item>
 			</swiper>
@@ -41,22 +41,33 @@
 </template>
 
 <script>
+import {$http}  from '../../utils/request.js'
 	export default {
 		data() {
 			return {
 			isShow : false,
-			topItem:''
+			topItem:'',
+			banner:[]
 			}
 		},
 		methods: {
 			handelScroll(ev){
-				console.log(ev)
+				// console.log(ev)
 				let {scrollTop} = ev.detail
 				this.isShow = scrollTop>500
 				this.topItem = ''
 			},
 			handelBackUp(){
 				this.topItem = 'top'
+			},
+			onLoad(){
+				// $http('/1.1/classes/classify').then(res=>{
+				// 	console.log(res)
+				// })
+				this.$get('/banners').then(res=>{
+					console.log(res)
+					this.banner = res.data
+				})
 			}
 		}
 	}
