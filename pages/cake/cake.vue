@@ -16,18 +16,21 @@
 		        <view class="pop-cont" >
 		            <view v-for="(item,index) in cfylist" class="padding-sm u-border-bottom">
 		            	{{item.bname}}
+						<view class="cu-tag round bg-yellow color-fff margin-left-xs">
+							{{item.num}}
+						</view>
 						<view v-if="index==0">
 							<view @click="listShow=!listShow" class="padding-tb-sm margin-top  u-border-top">
 								口味筛选	
 							</view>
 							<u-cell-group v-if="listShow">
-									<u-cell v-for="(item,index) in item.list" :title="item.tname" isLink ></u-cell>
+									<u-cell @click="handleList(itm,1)" v-for="(itm,idx) in item.list" :title="itm.tname" isLink ></u-cell>
 							</u-cell-group>
 							<view @click="sceneShow=!sceneShow" class="padding-tb-sm">
 								场景筛选
 							</view>
 							<u-cell-group v-if="sceneShow">
-									<u-cell v-for="(item,index) in item.scene" :title="item.tname" isLink ></u-cell>
+									<u-cell @click="handleList(itm,1)" v-for="(itm,idx) in item.scene" :title="itm.tname" isLink ></u-cell>
 							</u-cell-group>
 						</view>
 		            </view>
@@ -50,9 +53,9 @@
 					{name:'购物车',bcid:'',target:'/pages/cart/cart'},
 				],
 				// bcid:1,
-				condition:{
-					bcid:1
-				},
+				// condition:{
+				// 	bcid:1
+				// },
 				show: false,
 				cfylist:[],
 				listShow:false,
@@ -60,7 +63,12 @@
 			}
 		},
 		computed:{
-			
+			num(){
+				return this.$store.state.count.num
+			},
+			condition(){
+				return this.$store.state.condition.condition
+			}
 		},
 		methods: {
 			handleDetail(idx){
@@ -72,10 +80,10 @@
 			},
 			onLoad(){
 				this.loadData()
-				this.$get('/1.1/classes/goods').then(res=>{
-								console.log(res);
-								this.glist = res.results
-							})
+				// this.$get('/1.1/classes/goods').then(res=>{
+				// 				console.log(res);
+				// 				this.glist = res.results
+				// 			})
 				this.$get('/1.1/classes/classify').then(res=>{
 					console.log(res)
 					this.cfylist = res.results.slice(0,4)
@@ -96,6 +104,7 @@
 				this.$get(url).then(res=>{
 					uni.stopPullDownRefresh()
 					let {results} = res
+					console.log("11",res)
 					if(results.length){
 						this.page++
 						this.glist = [
@@ -111,13 +120,19 @@
 					
 				})
 			},
+			reloadData(){
+				this.glist = []
+				this.page = 0
+				this.loadData()
+			},
 			handleTab(item){
 				let {bcid,target} = item
 				if(bcid){
-					this.glist = []
-					this.page = 0
-					this.condition.bcid = Number(bcid)
-					this.loadData()
+					// this.condition.bcid = Number(bcid)
+					this.$store.commit('setCondition',{
+						bcid:Number(bcid)
+					})
+					this.reloadData()
 				}
 				if(!bcid&&!target){
 					this.show = true
@@ -126,8 +141,12 @@
 			handleClose(){
 				this.show = false
 			},
-			handleOpen(){
-				this.show = true
+			handleList({bid,tid},type){
+				let obj = {bcid:bid}
+				type === 1 ? obj.fid=tid : obj.sid=tid
+				this.$store.commit('setCondition',obj)
+				this.reloadData()
+				this.show = false
 			}
 		}
 	}
