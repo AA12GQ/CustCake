@@ -4,7 +4,7 @@
 		<view class="count" >
 			<good-item v-for="(item,index) in glist" :gdata="item"></good-item>
 			<view class="fixed flex bg-fff justify-around padding-sm">
-				<view v-for="(item,index) in tabArr" :key="index" @click="handleTab(index)"  class="flex align-center ">
+				<view v-for="(item,index) in tabArr" :key="index" @click="handleTab(item)"  class="flex align-center ">
 					<view class="">
 						{{item.name}}
 					</view>
@@ -49,12 +49,18 @@
 					{name:'小食',bcid:'6',target:'/pages/food/food'},
 					{name:'购物车',bcid:'',target:'/pages/cart/cart'},
 				],
-				bcid:1,
-				show: true,
+				// bcid:1,
+				condition:{
+					bcid:1
+				},
+				show: false,
 				cfylist:[],
 				listShow:false,
 				sceneShow:false
 			}
+		},
+		computed:{
+			
 		},
 		methods: {
 			handleDetail(idx){
@@ -83,9 +89,10 @@
 			onReachBottom() {
 						this.loadData()
 					},
-			loadData(bcid=1){
+			loadData(){
 				let skip = this.page * 8
-				let url = `/1.1/classes/goods?where={"bcid":1}&limit=8&skip=${skip}`
+				let wh = JSON.stringify(this.condition)
+				let url = `/1.1/classes/goods?where=${wh}&limit=8&skip=${skip}`
 				this.$get(url).then(res=>{
 					uni.stopPullDownRefresh()
 					let {results} = res
@@ -105,11 +112,11 @@
 				})
 			},
 			handleTab(item){
-				let {target,index} = item
+				let {bcid,target} = item
 				if(bcid){
 					this.glist = []
 					this.page = 0
-					this.bcid = bcid
+					this.condition.bcid = Number(bcid)
 					this.loadData()
 				}
 				if(!bcid&&!target){

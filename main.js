@@ -1,5 +1,5 @@
 import App from './App'
-
+import store from './store/index.js'
 // #ifndef VUE3
 import Vue from 'vue'
 import uView from "uview-ui";
@@ -24,7 +24,8 @@ for(let key in request) {
 }
 App.mpType = 'app'
 const app = new Vue({
-    ...App
+    ...App,
+	store
 })
 app.$mount()
 // #endif
