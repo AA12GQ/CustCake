@@ -1,29 +1,38 @@
 <template>
 	<view>
+		<nav-custom></nav-custom>
 		<view class="count" >
-			<view class="cake-item" v-for="(item,index) in 8" @click="handleDetail(index)" >
-				<view class="poster">
-					
-				</view>
-				<view class="info-cont">
-					<view class="info">
-						<view class="fs-28">
-							草莓蛋糕
-						</view>
-						<view class="fs-16">
-							CaoMei DanGao
-						</view>
-						<view class="fs-18">
-							<text class="fs-14">￥</text>
-							218.00
-						</view>
+			<good-item v-for="(item,index) in glist" :gdata="item"></good-item>
+			<view class="fixed flex bg-fff justify-around padding-sm">
+				<view v-for="(item,index) in tabArr" :key="index" @click="handleTab(index)"  class="flex align-center ">
+					<view class="">
+						{{item.name}}
 					</view>
-					<view class="cart-btn">
-						
-					</view>
+					<u-line v-if="index<tabArr.length-1" direction="col" length="15" margin="30upx"></u-line>
 				</view>
 			</view>
 		</view>
+		<u-popup :show="show" mode="left"  @close="handleClose" >
+		        <view class="pop-cont" >
+		            <view v-for="(item,index) in cfylist" class="padding-sm u-border-bottom">
+		            	{{item.bname}}
+						<view v-if="index==0">
+							<view @click="listShow=!listShow" class="padding-tb-sm margin-top  u-border-top">
+								口味筛选	
+							</view>
+							<u-cell-group v-if="listShow">
+									<u-cell v-for="(item,index) in item.list" :title="item.tname" isLink ></u-cell>
+							</u-cell-group>
+							<view @click="sceneShow=!sceneShow" class="padding-tb-sm">
+								场景筛选
+							</view>
+							<u-cell-group v-if="sceneShow">
+									<u-cell v-for="(item,index) in item.scene" :title="item.tname" isLink ></u-cell>
+							</u-cell-group>
+						</view>
+		            </view>
+		        </view>
+			</u-popup>
 	</view>
 </template>
 
@@ -31,7 +40,20 @@
 	export default {
 		data() {
 			return {
-				
+				glist:[],
+				page:0,
+				tabArr:[
+					{name:'分类',bcid:'',target:''},
+					{name:'蛋糕',bcid:'1',target:'/pages/cake'},
+					{name:'面包',bcid:'11',target:'/pages/bread'},
+					{name:'小食',bcid:'6',target:'/pages/food/food'},
+					{name:'购物车',bcid:'',target:'/pages/cart/cart'},
+				],
+				bcid:1,
+				show: true,
+				cfylist:[],
+				listShow:false,
+				sceneShow:false
 			}
 		},
 		methods: {
@@ -41,12 +63,73 @@
 					
 				})
 				console.log(idx)
+			},
+			onLoad(){
+				this.loadData()
+				this.$get('/1.1/classes/goods').then(res=>{
+								console.log(res);
+								this.glist = res.results
+							})
+				this.$get('/1.1/classes/classify').then(res=>{
+					console.log(res)
+					this.cfylist = res.results.slice(0,4)
+				})
+			},
+			onPullDownRefresh() {
+						this.glist = []
+						this.page = 0
+						this.loadData()
+					},
+			onReachBottom() {
+						this.loadData()
+					},
+			loadData(bcid=1){
+				let skip = this.page * 8
+				let url = `/1.1/classes/goods?where={"bcid":1}&limit=8&skip=${skip}`
+				this.$get(url).then(res=>{
+					uni.stopPullDownRefresh()
+					let {results} = res
+					if(results.length){
+						this.page++
+						this.glist = [
+							...this.glist,
+							...res.results
+						]
+					}else{
+						uni.showToast({
+							title:'这回真没了',
+							icon:'none'
+						})
+					}
+					
+				})
+			},
+			handleTab(item){
+				let {target,index} = item
+				if(bcid){
+					this.glist = []
+					this.page = 0
+					this.bcid = bcid
+					this.loadData()
+				}
+				if(!bcid&&!target){
+					this.show = true
+				}
+			},
+			handleClose(){
+				this.show = false
+			},
+			handleOpen(){
+				this.show = true
 			}
 		}
 	}
 </script>
 
 <style lang="scss">
+page{
+	padding:100upx 0 120upx;
+}
 .count{
 	display: flex;
 	flex-wrap: wrap;
@@ -68,5 +151,16 @@
 	.fs-14{
 		margin-bottom: 22upx;
 	}
+}
+.fixed{
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	box-shadow: 0 0 10upx 2upx rgba(0,0,0,0.2);
+}
+.pop-cont{
+	width: 400upx;
+	margin-top: 200upx;
 }
 </style>

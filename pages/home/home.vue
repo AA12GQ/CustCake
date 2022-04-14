@@ -4,9 +4,9 @@
 			<view id="top"></view>
 			<nav-custom></nav-custom>
 			<swiper class="banner" :indicator-dots="true" :autoplay="true" indicator-active-color="#ffe32a">
-				<swiper-item v-for="(item,index) in banner">
-					<view class="swiper-item">
-						<image :src="item.img" mode=""></image>
+				<swiper-item v-for="(item,index) in banner" >
+					<view class="swiper-item" @click="handelBanner(item.link)">
+						<image :src="item.img" mode="" ></image>
 					</view>
 				</swiper-item>
 			</swiper>
@@ -59,6 +59,11 @@ import {$http}  from '../../utils/request.js'
 			},
 			handelBackUp(){
 				this.topItem = 'top'
+			},
+			handelBanner(link){
+				uni.navigateTo({
+					url:`./banner1-ad?link=${link}`
+				})
 			},
 			onLoad(){
 				// $http('/1.1/classes/classify').then(res=>{

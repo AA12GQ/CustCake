@@ -1,16 +1,16 @@
 <template>
 	<view class="cake-item">
-			<view class="poster">
-				
+			<view>
+				<image :src="gdata.img" mode=""></image>
 			</view>
 			<view class="info-cont">
 				<view class="info flex align-center justify-between ">
 					<view class="">
 						<view class="fs-28">
-							草莓蛋糕
+							{{gdata.name}}
 						</view>
 						<view class="fs-16">
-							CaoMei DanGao
+							{{gdata.french}}
 						</view>
 					</view>
 					<view class="cart-btn margin-right-sm">
@@ -19,7 +19,7 @@
 				</view>
 					<view class="fs-18">
 						<text class="fs-14">￥</text>
-						218.00
+						{{gdata.price}}
 					</view>
 			</view>
 		</view>
@@ -29,6 +29,7 @@
 <script>
 	export default {
 		name:"good-item",
+		props:['gdata'],
 		data() {
 			return {
 				
