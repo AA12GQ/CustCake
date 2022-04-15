@@ -1,5 +1,5 @@
 <template>
-	<view class="cake-item">
+	<view class="cake-item" @click="handleDetail">
 			<view>
 				<image :src="gdata.img" mode=""></image>
 			</view>
@@ -34,6 +34,19 @@
 			return {
 				
 			};
+		},
+		methods:{
+			handleDetail(){
+				uni.setStorage({
+					key:'detail',
+					data:this.gdata,
+					success() {
+						uni.navigateTo({
+							url:'../pages/detail/detail'
+						})
+					}
+				})
+			}
 		}
 	}
 </script>

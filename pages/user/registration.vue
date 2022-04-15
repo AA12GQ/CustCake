@@ -64,7 +64,8 @@
 		border-bottom: 1px solid #e3e3e3;
 		.uni-input{
 			font-size: 30upx;
-			// padding: 7px 0;
+			padding: 7px 0;
+			height: 70upx;
 		}
 	}
 	.column-with-btn{

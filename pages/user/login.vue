@@ -2,12 +2,12 @@
 	<view class="content">
 		<view class="logo"><image src="../../static/user/logo.png" mode=""></image></view>
 		<view class="uni-form-item uni-column">
-			<input type="tel" class="uni-input" name="" placeholder="请输入手机号" />
+			<input v-model="info.username" type="tel" class="uni-input" name="" placeholder="请输入用户名" />
 		</view>
 		<view class="uni-form-item uni-column">
-			<input type="password" class="uni-input" name="" placeholder="请输入密码" />
+			<input v-model="info.password" type="password" class="uni-input" name="" placeholder="请输入密码" />
 		</view>
-		<button type="primary">登陆</button>
+		<button type="primary" @click="handleLogin">登陆</button>
 		<view class="links"><view @tap="gotoForgetPassword">忘记密码？</view><view>|</view><view class="link-highlight" @tap="gotoRegistration">注册账号</view></view>
 	</view>
 </template>
@@ -16,13 +16,19 @@
 	export default {
 		data() {
 			return {
-				
+				info:{
+					username:'王炸',
+					password:'123'
+				}
 			}
 		},
 		onLoad() {
 			
 		},
 		methods: {
+			handleLogin(){
+				this.$store.dispatch('user/userLoginAct',this.info)
+			},
 			gotoRegistration: function () {
 				uni.navigateTo({url: 'registration'});
 			},
@@ -53,6 +59,7 @@
 		.uni-input{
 			font-size: 30upx;
 			padding: 7px 0;
+			height: 70upx;
 		}
 	}
 	button[type="primary"]{

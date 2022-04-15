@@ -1,12 +1,12 @@
 <template>
 	<view>
 		<view class="count"></view>
-		<view class="margin bg-fff">
+		<view class="margin bg-fff" @click="handleUser">
 			<view class="text-center">
 				<image class="avatar" src="../../static/logo.png" mode=""></image>
 			</view>
 			<view class="text-xl text-center">
-				王炸
+				{{userName}}
 			</view>
 			<view class="flex grid col-4 text-df">
 				<view v-for="(item,index) in gridArr" class="flex flex-direction align-center margin-bottom">
@@ -58,8 +58,19 @@
 				]
 			}
 		},
+		computed: {
+			userName() {
+				let {userInfo} = this.$store.state.user
+				let name = userInfo ? userInfo.username : '未登录'
+				return name
+			}
+		},
 		methods: {
-			
+			handleUser(){
+				uni.navigateTo({
+					url:'../user/login'
+				})
+			}
 		}
 	}
 </script>
