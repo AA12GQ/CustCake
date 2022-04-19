@@ -85,7 +85,7 @@
 				></text>
 				全选
 				<view class="margin-left">
-					共计：{{allInfo.allPrice}}
+					共计：￥{{allInfo.allPrice}}
 				</view>
 			</view>
 			<view class="bg-yellow padding text-center color-fff">

@@ -1,3 +1,4 @@
+import Vue from 'vue'
 export default {
 	namespaced:true,  
 	state() {
@@ -67,6 +68,15 @@ export default {
 			cartListCheckMut(state,{cartIdx,dropIdx,num}){
 				state.cartList[cartIdx].idx = dropIdx
 				state.cartList[cartIdx].num = num
+			},
+			cartAddMut(state,goodObj){
+				// goodObj.ischeck = false
+				// goodObj.num = 1
+				// goodObj.idx = 0
+				Vue.set(goodObj,'ischeck',true)
+				Vue.set(goodObj,'num',1)
+				Vue.set(goodObj,'idx',0)
+				state.cartList.push(goodObj)
 			}
 			
 	}

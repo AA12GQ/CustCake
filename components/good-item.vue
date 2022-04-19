@@ -42,7 +42,7 @@
 					data:this.gdata,
 					success() {
 						uni.navigateTo({
-							url:'../pages/detail/detail'
+							url:'/pages/detail/detail'
 						})
 					}
 				})

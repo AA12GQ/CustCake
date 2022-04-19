@@ -2,7 +2,7 @@
 	<view>
 		<nav-custom></nav-custom>
 		<view class="count" >
-			<good-item v-for="(item,index) in glist" :gdata="item"></good-item>
+			<good-item v-for="(item,index) in glist" :gdata="item" ></good-item>
 			<view class="fixed flex bg-fff justify-around padding-sm">
 				<view v-for="(item,index) in tabArr" :key="index" @click="handleTab(item)"  class="flex align-center ">
 					<view class="">
@@ -47,8 +47,8 @@
 				page:0,
 				tabArr:[
 					{name:'分类',bcid:'',target:''},
-					{name:'蛋糕',bcid:'1',target:'/pages/cake'},
-					{name:'面包',bcid:'11',target:'/pages/bread'},
+					{name:'蛋糕',bcid:'1',target:'/pages/cake/cake'},
+					{name:'面包',bcid:'11',target:'/pages/bread/bread'},
 					{name:'小食',bcid:'6',target:'/pages/food/food'},
 					{name:'购物车',bcid:'',target:'/pages/cart/cart'},
 				],
@@ -136,6 +136,12 @@
 				}
 				if(!bcid&&!target){
 					this.show = true
+				}
+				if(!bcid&&target){
+					uni.navigateTo({
+						url:target,
+						icon:'none'
+					})
 				}
 			},
 			handleClose(){
