@@ -9,7 +9,15 @@ export default {
 					french: "Napoléon aux fraises",
 					ischeck:false,
 					price: "218.00",
-					img: "https://static.mcake.com/new_goods/napolunmeilian/N0201/list/1.jpg"
+					img: "https://static.mcake.com/new_goods/napolunmeilian/N0201/list/1.jpg",
+					list:[
+						{id: 10090, sku: "n0201", ahead: "提前5小时预定", edible: "2-3人食", spec: "1磅", price: "218.00"},
+						{id: 10091, sku: "n0202", ahead: "提前5小时预定", edible: "4-7人食", spec: "2磅", price: "318.00"},
+						{id: 10092, sku: "n0203", ahead: "提前5小时预定", edible: "8-12人食", spec: "3磅", price: "458.00"},
+						{id: 10093, sku: "n0205", ahead: "提前5小时预定", edible: "12-20人食", spec: "5磅", price: "750.00"}
+						],
+						num:1,
+						idx:0
 				},
 				{
 					id: "11547",
@@ -20,7 +28,14 @@ export default {
 					price: "218.00",
 					tid: 11,
 					tname: "限定",
-					img: "https://static.mcake.com/new_goods/napolunmeilian/N0201/list/1.jpg"
+					img: "https://static.mcake.com/new_goods/napolunmeilian/N0201/list/1.jpg",
+					list:[
+						{id: 10090, sku: "n0201", ahead: "提前5小时预定", edible: "2-3人食", spec: "1磅", price: "218.00"},
+						{id: 10091, sku: "n0202", ahead: "提前5小时预定", edible: "4-7人食", spec: "2磅", price: "318.00"},
+						{id: 10092, sku: "n0203", ahead: "提前5小时预定", edible: "8-12人食", spec: "3磅", price: "458.00"},
+						],
+						num:1,
+						idx:0
 				}
 			]
 		}
@@ -28,12 +43,16 @@ export default {
 	getters:{
 		allInfo(state){
 			let allCheck = true
+			let allPrice = 0
 			state.cartList.forEach(item=>{
 				if(!item.ischeck){
 					allCheck = false
 				}
+				if(item.ischeck){
+					allPrice += item.list[item.idx].price * item.num
+				}
 			})
-			return {allCheck}
+			return {allCheck,allPrice}
 		}
 	},
 	mutations:{
@@ -44,6 +63,11 @@ export default {
 				state.cartList.forEach(item=>{
 					item.ischeck = !bool
 				})
+			},
+			cartListCheckMut(state,{cartIdx,dropIdx,num}){
+				state.cartList[cartIdx].idx = dropIdx
+				state.cartList[cartIdx].num = num
 			}
+			
 	}
 }

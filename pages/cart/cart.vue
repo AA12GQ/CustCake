@@ -14,13 +14,15 @@
 				<view class="fs-28">
 					{{item.name}}
 					<view class="margin-tb-xs">{{item.french}}</view>
-					￥{{item.price}}
+					￥{{item.list[item.idx].price}}
 				</view>
 				<view class="flex flex-direction align-end">
-					<view @click="show=true" class="edit margin-bottom-xs">
+					<view @click="handleEdit(index)" class="edit margin-bottom-xs">
 						<text class="iconfont icon-bianji"></text>
 					</view>
-					1磅(454g) x 1
+					{{item.list[item.idx].spec}}
+					 x 
+					 {{item.num}}
 				</view>
 			</view>
 		</view>
@@ -31,17 +33,31 @@
 						<view class="flex justify-between info">
 							<image class="poster margin-right" src="" mode=""></image>
 							<view class="">
-								草莓蛋糕
-								<view class="margin-tb-xs">CaoMei</view>
-								￥199
+								{{cartList[cartIdx].name}}
+								<view class="margin-tb-xs">{{cartList[cartIdx].french}}</view>
+								￥{{checkCartInfo.price}}
 							</view>
 						</view>
 						<view class="flex justify-between padding-tb u-border-bottom">
 							<view class="">
 								规格选择
 							</view>
-							<view class="">
-								下拉菜单
+							<view class="drop">
+								<view class="" @click="dropShow=!dropShow">
+									{{checkCartInfo.spec}} 
+									-
+									{{checkCartInfo.edible}}
+									<text class="iconfont icon-xiala margin-left-sm"></text>
+								</view>
+								<view class="drop-list bg-fff" v-if="dropShow">
+									<view 
+									v-for="(item,index) in cartList[cartIdx].list" 
+									class="padding"
+									@click="handleDropList(index)"
+									>
+										{{item.spec}} - {{item.edible}}
+									</view>
+								</view>
 							</view>
 						</view>
 						<view class="flex justify-between padding-tb-sm align-center u-border-bottom">
@@ -50,11 +66,12 @@
 							</view>
 							<u-number-box 
 							    button-size="36"
+								@change="handleNum"
 							></u-number-box>
 						</view>
 						<view class="flex margin-top">
-							<button type="default" class="cu-btn lg bg-brown">取消</button>
-							<button type="default" class="cu-btn lg bg-yellow">确认</button>
+							<button type="default" class="cu-btn lg bg-brown" @click="show = false">取消</button>
+							<button type="default" class="cu-btn lg bg-yellow" @click="handleOk">确认</button>
 						</view>
 					</view>
 				</view>
@@ -68,7 +85,7 @@
 				></text>
 				全选
 				<view class="margin-left">
-					共计：189
+					共计：{{allInfo.allPrice}}
 				</view>
 			</view>
 			<view class="bg-yellow padding text-center color-fff">
@@ -83,7 +100,11 @@ import {mapState,mapMutations,mapGetters} from 'vuex'
 	export default {
 		data() {
 			return {
-				show:true
+				show:false,
+				dropShow:false,
+				cartIdx:0,
+				dropIdx:0,
+				num:1
 			}
 		},
 		computed:{
@@ -92,13 +113,35 @@ import {mapState,mapMutations,mapGetters} from 'vuex'
 			}),
 			...mapGetters({
 				allInfo:'cart/allInfo'
-			})
+			}),
+			checkCartInfo(){
+				let { cartIdx,cartList,dropIdx} = this
+				return cartList[cartIdx].list[dropIdx]
+			}
 		},
 		methods: {
 			...mapMutations({
 				handleCheck:'cart/cartCheckMut',
 				handleAllCheck:'cart/cartAllCheckMut',
-			})
+			}),
+			handleEdit(idx){
+				this.cartIdx = idx
+				this.dropIdx = this.cartList[idx].idx
+				this.show = !this.show
+			},
+			handleDropList(dropIdx){
+				this.dropShow = false
+				this.dropIdx = dropIdx
+			},
+			handleOk(){
+				this.show = false
+				let {cartIdx,dropIdx,num} = this
+				console.log(cartIdx,dropIdx,num);
+				this.$store.commit('cart/cartListCheckMut',{cartIdx,dropIdx,num})
+			},
+			handleNum({value}){
+				console.log(value);
+			}
 		}
 	}
 </script>
@@ -142,5 +185,21 @@ page{
 	top:25%;
 	left: 0;
 	width: 690upx;
+	border-radius: 15supx;
+}	
+.drop{
+	position: relative;
+	.drop-list{
+		width: 300upx;
+		position: absolute;
+		top: 60upx;
+		right: 0;
+		box-shadow: 0 0 10upx 2upx rgba(0,0,0,0.2);
+		z-index: 2;
+		view:hover{
+			background-color: #e6e6e6;
+		}
+	}
 }
+
 </style>
