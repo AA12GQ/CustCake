@@ -70,12 +70,21 @@ export default {
 				state.cartList[cartIdx].num = num
 			},
 			cartAddMut(state,goodObj){
+				let {cartList} = state
+				let len = cartList.length
+				for(let i=0;i<len;i++){
+					let {id,idx} = goodObj
+					if(cartList[i].id==id&&cartList[i].idx==idx){
+						state.cartList[i].num++
+						return
+					}
+				}
 				// goodObj.ischeck = false
 				// goodObj.num = 1
 				// goodObj.idx = 0
 				Vue.set(goodObj,'ischeck',true)
 				Vue.set(goodObj,'num',1)
-				Vue.set(goodObj,'idx',0)
+				// Vue.set(goodObj,'idx',0)
 				state.cartList.push(goodObj)
 			}
 			

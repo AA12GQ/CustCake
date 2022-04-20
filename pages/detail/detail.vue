@@ -31,7 +31,7 @@
 			{{detail.list[tabIdx].fittings}}
 		</view>
 		<view class="flex justify-around fixed padding-tb-sm">
-			<button @click="handleAdd(detail)" class="cu-btn bg-brown lg" type="default">加入购物车</button>
+			<button @click="handleAdd({...detail,idx:tabIdx})" class="cu-btn bg-brown lg" type="default">加入购物车</button>
 			<button class="cu-btn bg-yellow lg" type="default">立即购买</button>
 		</view>
 	</view>

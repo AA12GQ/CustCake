@@ -13,7 +13,7 @@
 							{{gdata.french}}
 						</view>
 					</view>
-					<view class="cart-btn margin-right-sm">
+					<view @click.stop="handleCartAdd" class="cart-btn margin-right-sm">
 						<text class="iconfont icon-gouwuche"></text>
 					</view>
 				</view>
@@ -45,6 +45,12 @@
 							url:'/pages/detail/detail'
 						})
 					}
+				})
+			},
+			handleCartAdd(){
+				this.$store.commit('cart/cartAddMut',{
+					...this.gdata,
+					idx:0
 				})
 			}
 		}

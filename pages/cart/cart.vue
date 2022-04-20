@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<view class="flex padding" v-for="(item,index) in cartList">
+		<view class="flex padding" v-for="(item,index) in cartList" :key="item.id+ '-'+item.idx">
 			<view class="flex align-center">
 				<text 
 				class="iconfont icon-gouxuan margin-right"
