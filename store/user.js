@@ -1,7 +1,6 @@
 import {$post} from '../utils/request.js'
-
 export default {
-	namespaced:true,
+	namespaced:true, 
 	state(){
 		return {
 			userInfo:null
@@ -15,7 +14,7 @@ export default {
 	actions:{
 		userLoginAct(context,info){
 			$post('/1.1/login',info).then(res=>{
-				console.log(res)
+				console.log(res);
 				let {code} = res
 				if(code){
 					let title = code === 211 ? '账号不存在' : '密码错误'
@@ -23,6 +22,7 @@ export default {
 						title,
 						icon:'none'
 					})
+					return
 				}
 				context.commit('initInfo',res)
 				uni.setStorage({

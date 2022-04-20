@@ -88,7 +88,7 @@
 					共计：￥{{allInfo.allPrice}}
 				</view>
 			</view>
-			<view class="bg-yellow padding text-center color-fff">
+			<view @click="handleOrder" class="bg-yellow padding text-center color-fff">
 				立即结算
 			</view>
 		</view>
@@ -109,7 +109,8 @@ import {mapState,mapMutations,mapGetters} from 'vuex'
 		},
 		computed:{
 			...mapState({
-				cartList:state=>state.cart.cartList
+				cartList:state=>state.cart.cartList,
+				userInfo:state=>state.user.userInfo
 			}),
 			...mapGetters({
 				allInfo:'cart/allInfo'
@@ -141,7 +142,33 @@ import {mapState,mapMutations,mapGetters} from 'vuex'
 			},
 			handleNum({value}){
 				console.log(value);
+			},
+			handleOrder(){
+				uni.navigateTo({
+					url:'/pages/order/order'
+				})
 			}
+		},
+		onLoad(){
+			
+			uni.showModal({
+				title:'温馨提示',
+				content:'您需要先登录才能进行您的操作',
+				cancelText:'待会再说',
+				confirmText:'立即登录',
+				success: ({cancel}) => {
+					if(cancel){
+						uni.navigateBack({
+							delta:1
+						})
+						return
+					}
+					uni.navigateTo({
+						url:'../user/login'
+					})
+				}
+			})
+			
 		}
 	}
 </script>
