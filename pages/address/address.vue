@@ -10,7 +10,11 @@
 			</view>
 			<view class="flex justify-between align-center">
 				<view class="flex align-center">
-					<text class="iconfont icon-gouxuan margin-right"></text>
+					<text 
+					class="iconfont icon-gouxuan margin-right"
+					:class="checkedIdx==index?'color-yellow':''"
+					@click="handleCheckAddress(index)"
+					></text>
 					<view class="">
 						{{item.username}} {{item.phone}}
 						<view class="">
@@ -51,12 +55,15 @@ import {mapState,mapMutations} from 'vuex'
 		},
 		methods: {
 			...mapMutations({
-				'handleDefault':'address/addressDefaultMut'
+				'handleDefault':'address/addressDefaultMut',
+				'handleCheckAddress':'address/addressCheckMut'
+				
 			})
 		},
 		computed:{
 			...mapState({
-				addressList:state=>state.address.addressList
+				addressList:state=>state.address.addressList,
+				checkedIdx:state=>state.address.checkedIdx,
 			})
 		}
 	}

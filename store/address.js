@@ -2,6 +2,7 @@ export default {
 	namespaced:true,
 	state(){
 		return {
+			checkedIdx:-1,
 			addressList:[
 				{
 					username:'王炸',
@@ -22,6 +23,20 @@ export default {
 			]
 		}
 	},
+	getters:{
+		orderAddress(state){
+			let {checkedIdx,addressList} = state
+			if(checkedIdx!=-1){
+				return addressList[checkedIdx]
+			}
+			let len = addressList.length
+			for(let i = 0;i < len; i++){
+				if(addressList[i].isdefault){
+					return addressList[i]
+				}
+			}
+		}
+	},
 	mutations:{
 		addressDefaultMut(state,idx){
 			state.addressList.forEach((item,i)=>{
@@ -30,6 +45,12 @@ export default {
 				}else{
 					item.isdefault = false
 				}
+			})
+		},
+		addressCheckMut(state,idx){
+			state.checkedIdx = idx
+			uni.navigateBack({
+				delta:1
 			})
 		}
 	}

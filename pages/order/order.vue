@@ -1,10 +1,10 @@
 <template>
 	<view>
-		<view class="padding flex align-center justify-between">
+		<view @click="handleAddress" class="padding flex align-center justify-between">
 			<view class="">
-				王炸 166666666
+				{{orderAddress.username}} {{orderAddress.phone}}
 				<view class="">
-					长沙市 河州镇 中心幼儿园
+					{{orderAddress.city}} {{orderAddress.region}} {{orderAddress.detail}}
 				</view>
 			</view>
 			<text class="cuIcon-right"></text>
@@ -52,14 +52,24 @@
 </template>
 
 <script>
+import {mapGetters} from 'vuex'	
 	export default {
 		data() {
 			return {
 				
 			}
 		},
+		computed:{
+			...mapGetters({
+				'orderAddress':'address/orderAddress'
+			})
+		},
 		methods: {
-			
+			handleAddress(){
+				uni.navigateTo({
+					url:'../address/address'
+				})
+			}
 		}
 	}
 </script>
