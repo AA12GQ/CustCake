@@ -12,7 +12,7 @@
 				<view class="flex align-center">
 					<text 
 					class="iconfont icon-gouxuan margin-right"
-					:class="checkedIdx==index?'color-yellow':''"
+					:class="checkedIdx==index||item.isdefault?'color-yellow':''"
 					@click="handleCheckAddress(index)"
 					></text>
 					<view class="">
