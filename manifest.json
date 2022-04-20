@@ -100,5 +100,14 @@
     "uniStatistics" : {
         "enable" : false
     },
-    "vueVersion" : "2"
+    "vueVersion" : "2",
+    "h5" : {
+        "sdkConfigs" : {
+            "maps" : {
+                "qqmap" : {
+                    "key" : "DBRBZ-N7B6F-A3DJO-JAESN-LUEWZ-GOFK6"
+                }
+            }
+        }
+    }
 }

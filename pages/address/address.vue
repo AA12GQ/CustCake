@@ -40,7 +40,7 @@
 			</view>
 		</view>
 		<view class="text-center">
-			<button type="cu-btn bg-brown">新增地址</button>
+			<button type="cu-btn bg-brown" @click="handleAddLocal">新增地址</button>
 		</view>
 	</view>
 </template>
@@ -58,7 +58,12 @@ import {mapState,mapMutations} from 'vuex'
 				'handleDefault':'address/addressDefaultMut',
 				'handleCheckAddress':'address/addressCheckMut'
 				
-			})
+			}),
+			handleAddLocal(){
+				uni.navigateTo({
+					url:'./address-detail'
+				})
+			}
 		},
 		computed:{
 			...mapState({
