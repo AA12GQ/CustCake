@@ -61,6 +61,14 @@
 .bg-fff{
 	background-color: #fff !important;
 }
+
+.fixed{
+	position: fixed !important;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	box-shadow: 0 0 10upx 2upx rgba(0,0,0,0.2);
+}
 /* 颜色变量 */
 
 /* 行为相关颜色 */
