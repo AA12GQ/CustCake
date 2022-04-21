@@ -12,6 +12,8 @@ import HomeTitle from 'components/home-title.vue'
 Vue.component('home-title',HomeTitle)
 import GoodItem from 'components/good-item.vue'
 Vue.component('good-item',GoodItem)
+import TabCustom from 'components/tab-custom.vue'
+Vue.component('tab-custom',TabCustom)
 
 // 原型挂载异步请求方法
 // import {$http,$get,$post} from 'utils/request.js'

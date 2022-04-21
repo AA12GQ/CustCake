@@ -37,6 +37,7 @@
 				<text class="iconfont icon-tubiao_fanhuidingbu"></text>
 			</view>
 		</view>
+		<tab-custom></tab-custom>
 	</scroll-view>
 </template>
 
@@ -69,9 +70,9 @@ import {$http}  from '../../utils/request.js'
 				// $http('/1.1/classes/classify').then(res=>{
 				// 	console.log(res)
 				// })
-				this.$get('/banners').then(res=>{
-					console.log(res)
-					this.banner = res.data
+				this.$get('/1.1/classes/banner').then(res=>{
+					console.log(res);
+					this.banner = res.results
 				})
 			}
 		}
