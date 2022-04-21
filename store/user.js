@@ -1,9 +1,9 @@
 import {$post} from '../utils/request.js'
 export default {
-	namespaced:true, 
+	namespaced:true, //开启命名空间后，访问所有属性都需要带模块名
 	state(){
 		return {
-			userInfo:null
+			userInfo:uni.getStorageSync("userInfo") || []
 		}
 	},
 	mutations:{

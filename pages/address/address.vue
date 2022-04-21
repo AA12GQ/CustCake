@@ -55,7 +55,7 @@ import {mapState,mapMutations} from 'vuex'
 		},
 		methods: {
 			...mapMutations({
-				'handleDefault':'address/addressDefaultMut',
+				// 'handleDefault':'address/addressDefaultMut',
 				'handleCheckAddress':'address/addressCheckMut'
 				
 			}),
@@ -63,12 +63,29 @@ import {mapState,mapMutations} from 'vuex'
 				uni.navigateTo({
 					url:'./address-detail'
 				})
+			},
+			handleDefault(idx){
+				let obj = {"requests":[]}
+				this.addressList.forEach((item,i)=>{
+					let bool = i===idx
+					obj.requests.push({
+						"method": "PUT",
+						"path": `/1.1/classes/address/${item.objectId}`,
+						"body": {
+						"isdefault": bool
+						}
+					})
+				})
+				this.$post('/1.1/batch',obj).then(res=>{ //批量操作在线数据
+					this.$store.commit('address/addressDefaultMut',idx)
+					})
 			}
 		},
 		computed:{
 			...mapState({
 				addressList:state=>state.address.addressList,
 				checkedIdx:state=>state.address.checkedIdx,
+				userInfo:state=>state.user.userInfo
 			})
 		}
 	}

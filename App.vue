@@ -3,9 +3,11 @@
 		onLaunch: function() {
 			console.log('App Launch')
 			try {
-				const value = uni.getStorageSync('userinfo');
+				const value = uni.getStorageSync('userInfo');
+				console.log(111);
 				if (value) {
 					this.$store.commit('user/initInfo',value)
+					this.$store.dispatch('address/addressInitAct',value.objectId)
 				}
 			} catch (e) {
 				// error

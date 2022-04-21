@@ -150,7 +150,9 @@ import {mapState,mapMutations,mapGetters} from 'vuex'
 			}
 		},
 		onLoad(){
-			
+			if(this.userInfo){
+				return
+			}
 			uni.showModal({
 				title:'温馨提示',
 				content:'您需要先登录才能进行您的操作',
