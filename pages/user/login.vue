@@ -22,9 +22,6 @@
 				}
 			}
 		},
-		onLoad() {
-			
-		},
 		methods: {
 			handleLogin(){
 				this.$store.dispatch('user/userLoginAct',this.info)

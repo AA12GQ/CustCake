@@ -102,9 +102,7 @@
 </script>
 
 <style lang="scss">
-page{
-	padding:100upx 0 120upx;
-}
+
 .count{
 	display: flex;
 	flex-wrap: wrap;

@@ -80,7 +80,10 @@ import {$http}  from '../../utils/request.js'
 </script>
 
 <style lang="scss">
-	.banner{
+page{
+		padding:100upx 0 120upx;
+}
+.banner{
 		height: 1000upx;
 		swiper-item{
 			width: 100%;
