@@ -1,0 +1,1 @@
+<view><view class="cu-bar bg-white"><view class="action"><text class="cuIcon-locationfill text-gray"></text>长沙</view><view class="content text-bold">MCAKE</view><view class="action text-grey"><text class="cuIcon-search "></text><u-line vue-id="01c06a70-1" direction="col" margin="0px 10px" length="15" bind:__l="__l"></u-line><text class="cuIcon-sort"></text></view></view></view>

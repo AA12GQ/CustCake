@@ -150,7 +150,7 @@ import {mapState,mapMutations,mapGetters} from 'vuex'
 			}
 		},
 		onLoad(){
-			if(this.userInfo){
+			if(this.userInfo.length!=0){
 				return
 			}
 			uni.showModal({

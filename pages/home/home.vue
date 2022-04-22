@@ -66,15 +66,16 @@ import {$http}  from '../../utils/request.js'
 					url:`./banner1-ad?link=${link}`
 				})
 			},
-			onLoad(){
-				// $http('/1.1/classes/classify').then(res=>{
-				// 	console.log(res)
-				// })
-				this.$get('/1.1/classes/banner').then(res=>{
-					console.log(res);
-					this.banner = res.results
-				})
-			}
+			
+		},
+		onLoad(){
+			// $http('/1.1/classes/classify').then(res=>{
+			// 	console.log(res)
+			// })
+			this.$get('/1.1/classes/banner').then(res=>{
+				console.log(res);
+				this.banner = res.results
+			})
 		}
 	}
 </script>

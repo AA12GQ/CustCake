@@ -1,0 +1,1 @@
+<view class="padding flex justify-between align-center margin-tb-sm"><view class="flex align-center"><text class="iconfont icon-canju text-grey margin-right"></text><view>{{''+title+''}}<view>{{enTitle}}</view></view></view><view>{{''+enTit+''}}</view></view>

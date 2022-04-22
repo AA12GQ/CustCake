@@ -1,0 +1,1 @@
+<view><view class="flex justify-between padding"><view>草莓蛋糕</view><view><u--text vue-id="cea69964-1" type="primary" text="主色" bind:__l="__l"></u--text></view></view></view>
